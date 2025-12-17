@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLC电气交互表</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 16px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 15px 20px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        tr:nth-child(2) th {
+            background-color: #2980b9;
+            font-size: 17px;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        tr:nth-child(odd):not(:first-child):not(:nth-child(2)) {
+            background-color: white;
+        }
+        tr:hover:not(:first-child):not(:nth-child(2)) {
+            background-color: #e8f4fc;
+            transition: background-color 0.2s;
+        }
+        .merged-header {
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
+        .input-section {
+            border-right: 2px solid #3498db;
+        }
+        .output-section {
+            border-left: 2px solid #3498db;
+        }
+        .note {
+            font-style: italic;
+            color: #7f8c8d;
+        }
+        .section-title {
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        .footer-note {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #555;
+        }
+        @media (max-width: 768px) {
+            th, td {
+                padding: 10px 5px;
+                font-size: 14px;
+            }
+            th {
+                font-size: 15px;
+            }
+            .merged-header {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PLC电气交互表</h1>
+        <p style="text-align: center; margin-bottom: 25px; color: #555;">集群化设备电气交互控制功能定义</p>
+        
+        <table>
+            <tr>
+                <th colspan="6" class="merged-header">集群化设备电气交互</th>
+            </tr>
+            <tr>
+                <th class="input-section">PLC输入</th>
+                <th class="input-section">功能名称</th>
+                <th class="input-section">备注</th>
+                <th class="output-section">PLC输出</th>
+                <th class="output-section">功能名称</th>
+                <th class="output-section">备注</th>
+            </tr>
+            <tr>
+                <td>I0.0</td>
+                <td>急停按钮</td>
+                <td class="note">设备总急停信号</td>
+                <td>Q0.0</td>
+                <td>主电源继电器</td>
+                <td class="note">控制主电路通电</td>
+            </tr>
+            <tr>
+                <td>I0.1</td>
+                <td>启动按钮</td>
+                <td class="note">系统启动信号</td>
+                <td>Q0.1</td>
+                <td>运行指示灯</td>
+                <td class="note">绿色，系统运行指示</td>
+            </tr>
+            <tr>
+                <td>I0.2</td>
+                <td>停止按钮</td>
+                <td class="note">系统正常停止</td>
+                <td>Q0.2</td>
+                <td>故障指示灯</td>
+                <td class="note">红色，故障报警指示</td>
+            </tr>
+            <tr>
+                <td>I0.3</td>
+                <td>复位按钮</td>
+                <td class="note">故障复位信号</td>
+                <td>Q0.3</td>
+                <td>电机启动器</td>
+                <td class="note">主电机控制输出</td>
+            </tr>
+            <tr>
+                <td>I0.4</td>
+                <td>过载保护</td>
+                <td class="note">电机过载信号输入</td>
+                <td>Q0.4</td>
+                <td>冷却风扇</td>
+                <td class="note">设备散热控制</td>
+            </tr>
+            <tr>
+                <td>I0.5</td>
+                <td>温度传感器</td>
+                <td class="note">设备温度监测</td>
+                <td>Q0.5</td>
+                <td>报警蜂鸣器</td>
+                <td class="note">声音报警输出</td>
+            </tr>
+            <tr>
+                <td>I0.6</td>
+                <td>门限开关</td>
+                <td class="note">安全门状态监测</td>
+                <td>Q0.6</td>
+                <td>电磁阀A</td>
+                <td class="note">气路控制A</td>
+            </tr>
+            <tr>
+                <td>I0.7</td>
+                <td>气压检测</td>
+                <td class="note">气路压力检测</td>
+                <td>Q0.7</td>
+                <td>电磁阀B</td>
+                <td class="note">气路控制B</td>
+            </tr>
+            <tr>
+                <td>I1.0</td>
+                <td>物料检测</td>
+                <td class="note">进料检测传感器</td>
+                <td>Q1.0</td>
+                <td>输送带电机</td>
+                <td class="note">物料输送控制</td>
+            </tr>
+            <tr>
+                <td>I1.1</td>
+                <td>位置传感器A</td>
+                <td class="note">工位A到位检测</td>
+                <td>Q1.1</td>
+                <td>液压站电机</td>
+                <td class="note">液压系统控制</td>
+            </tr>
+        </table>
+        
+        <div class="footer-note">
+            <p><strong>说明：</strong></p>
+            <ul>
+                <li>本表格展示了集群化设备PLC控制系统的输入输出点分配及功能定义</li>
+                <li><span class="section-title">PLC输入</span>列表示从现场设备到PLC的输入信号</li>
+                <li><span class="section-title">PLC输出</span>列表示从PLC到现场执行设备的输出信号</li>
+                <li>表格左侧(前三列)为输入部分，右侧(后三列)为输出部分</li>
+                <li>备注列提供了每个I/O点的补充说明和注意事项</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // 简单的交互效果：点击表格行时高亮显示
+        document.addEventListener('DOMContentLoaded', function() {
+            const tableRows = document.querySelectorAll('table tr');
+            tableRows.forEach(row => {
+                // 跳过前两行（表头）
+                if(row.rowIndex > 1) {
+                    row.addEventListener('click', function() {
+                        // 移除其他行的高亮
+                        tableRows.forEach(r => {
+                            if(r.rowIndex > 1) r.style.backgroundColor = '';
+                        });
+                        // 高亮当前行
+                        this.style.backgroundColor = '#d4edda';
+                    });
+                }
+            });
+            
+            // 添加表格标题的鼠标悬停效果
+            const mainHeader = document.querySelector('.merged-header');
+            mainHeader.addEventListener('mouseover', function() {
+                this.style.backgroundColor = '#2c80b9';
+            });
+            mainHeader.addEventListener('mouseout', function() {
+                this.style.backgroundColor = '';
+            });
+        });
+    </script>
+</body>
+</html>
