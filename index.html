@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PLC电气交互表</title>
+    <title>PLC机器人交互表</title>
     <style>
         body {
             font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
@@ -19,7 +19,7 @@
             color: #2c3e50;
             margin-bottom: 30px;
             padding-bottom: 15px;
-            border-bottom: 2px solid #3498db;
+            border-bottom: 2px solid #e74c3c;
         }
         table {
             width: 100%;
@@ -36,13 +36,13 @@
             border: 1px solid #ddd;
         }
         th {
-            background-color: #3498db;
+            background-color: #e74c3c;
             color: white;
             font-weight: 600;
             font-size: 18px;
         }
         tr:nth-child(2) th {
-            background-color: #2980b9;
+            background-color: #c0392b;
             font-size: 17px;
         }
         tr:nth-child(even) {
@@ -52,7 +52,7 @@
             background-color: white;
         }
         tr:hover:not(:first-child):not(:nth-child(2)) {
-            background-color: #e8f4fc;
+            background-color: #ffeaea;
             transition: background-color 0.2s;
         }
         .merged-header {
@@ -60,10 +60,10 @@
             letter-spacing: 1px;
         }
         .input-section {
-            border-right: 2px solid #3498db;
+            border-right: 2px solid #e74c3c;
         }
         .output-section {
-            border-left: 2px solid #3498db;
+            border-left: 2px solid #e74c3c;
         }
         .note {
             font-style: italic;
@@ -103,129 +103,118 @@
 </head>
 <body>
     <div class="container">
-        <h1>PLC电气交互表</h1>
-        <p style="text-align: center; margin-bottom: 25px; color: #555;">集群化设备电气交互控制功能定义</p>
+        <h1>PLC机器人交互表</h1>
+        <p style="text-align: center; margin-bottom: 25px; color: #555;">集群化设备中机器人与PLC的信号交互定义</p>
         
         <table>
             <tr>
                 <th colspan="6" class="merged-header">集群化设备电气交互</th>
             </tr>
             <tr>
-                <th class="input-section">PLC输入</th>
+                <th class="input-section">机器人输入</th>
                 <th class="input-section">功能名称</th>
                 <th class="input-section">备注</th>
-                <th class="output-section">PLC输出</th>
+                <th class="output-section">机器人输出</th>
                 <th class="output-section">功能名称</th>
                 <th class="output-section">备注</th>
             </tr>
             <tr>
-                <td>I0.0</td>
-                <td>急停按钮</td>
-                <td class="note">设备总急停信号</td>
-                <td>Q0.0</td>
-                <td>主电源继电器</td>
-                <td class="note">控制主电路通电</td>
+                <td>DI[0]</td>
+                <td>启动允许</td>
+                <td class="note">来自PLC的总启动就绪信号</td>
+                <td>DO[0]</td>
+                <td>运行状态</td>
+                <td class="note">机器人运行中信号，输出至PLC</td>
             </tr>
             <tr>
-                <td>I0.1</td>
-                <td>启动按钮</td>
-                <td class="note">系统启动信号</td>
-                <td>Q0.1</td>
-                <td>运行指示灯</td>
-                <td class="note">绿色，系统运行指示</td>
+                <td>DI[1]</td>
+                <td>急停状态</td>
+                <td class="note">PLC急停按钮状态，1=正常，0=急停</td>
+                <td>DO[1]</td>
+                <td>任务完成</td>
+                <td class="note">当前作业循环完成信号</td>
             </tr>
             <tr>
-                <td>I0.2</td>
-                <td>停止按钮</td>
-                <td class="note">系统正常停止</td>
-                <td>Q0.2</td>
-                <td>故障指示灯</td>
-                <td class="note">红色，故障报警指示</td>
+                <td>DI[2]</td>
+                <td>工位物料到位</td>
+                <td class="note">对应工位传感器检测到物料</td>
+                <td>DO[2]</td>
+                <td>请求上料</td>
+                <td class="note">请求传送带或AGV供应新物料</td>
             </tr>
             <tr>
-                <td>I0.3</td>
-                <td>复位按钮</td>
-                <td class="note">故障复位信号</td>
-                <td>Q0.3</td>
-                <td>电机启动器</td>
-                <td class="note">主电机控制输出</td>
+                <td>DI[3]</td>
+                <td>安全门关闭</td>
+                <td class="note">机器人工作区域安全门已关闭并锁紧</td>
+                <td>DO[3]</td>
+                <td>夹爪打开</td>
+                <td class="note">控制末端执行器打开</td>
             </tr>
             <tr>
-                <td>I0.4</td>
-                <td>过载保护</td>
-                <td class="note">电机过载信号输入</td>
-                <td>Q0.4</td>
-                <td>冷却风扇</td>
-                <td class="note">设备散热控制</td>
+                <td>DI[4]</td>
+                <td>夹具夹紧确认</td>
+                <td class="note">夹具压力传感器反馈夹紧到位</td>
+                <td>DO[4]</td>
+                <td>夹爪关闭</td>
+                <td class="note">控制末端执行器关闭/夹紧</td>
             </tr>
             <tr>
-                <td>I0.5</td>
-                <td>温度传感器</td>
-                <td class="note">设备温度监测</td>
-                <td>Q0.5</td>
-                <td>报警蜂鸣器</td>
-                <td class="note">声音报警输出</td>
+                <td>DI[5]</td>
+                <td>程序号选择位0</td>
+                <td class="note">与DI[6]、DI[7]组成3位二进制程序号</td>
+                <td>DO[5]</td>
+                <td>报警代码位0</td>
+                <td class="note">与DO[6]、DO[7]组成3位二进制报警代码</td>
             </tr>
             <tr>
-                <td>I0.6</td>
-                <td>门限开关</td>
-                <td class="note">安全门状态监测</td>
-                <td>Q0.6</td>
-                <td>电磁阀A</td>
-                <td class="note">气路控制A</td>
+                <td>DI[6]</td>
+                <td>程序号选择位1</td>
+                <td class="note">二进制程序号选择信号</td>
+                <td>DO[6]</td>
+                <td>报警代码位1</td>
+                <td class="note">二进制报警代码输出</td>
             </tr>
             <tr>
-                <td>I0.7</td>
-                <td>气压检测</td>
-                <td class="note">气路压力检测</td>
-                <td>Q0.7</td>
-                <td>电磁阀B</td>
-                <td class="note">气路控制B</td>
+                <td>DI[7]</td>
+                <td>程序号选择位2</td>
+                <td class="note">二进制程序号选择信号</td>
+                <td>DO[7]</td>
+                <td>报警代码位2</td>
+                <td class="note">二进制报警代码输出，000表示正常</td>
             </tr>
             <tr>
-                <td>I1.0</td>
-                <td>物料检测</td>
-                <td class="note">进料检测传感器</td>
-                <td>Q1.0</td>
-                <td>输送带电机</td>
-                <td class="note">物料输送控制</td>
-            </tr>
-            <tr>
-                <td>I1.1</td>
-                <td>位置传感器A</td>
-                <td class="note">工位A到位检测</td>
-                <td>Q1.1</td>
-                <td>液压站电机</td>
-                <td class="note">液压系统控制</td>
+                <td>AI[0]</td>
+                <td>模拟力觉反馈</td>
+                <td class="note">来自力传感器的模拟量信号</td>
+                <td>AO[0]</td>
+                <td>速度比例设定</td>
+                <td class="note">输出至PLC的模拟量，用于整体节拍调节</td>
             </tr>
         </table>
         
         <div class="footer-note">
-            <p><strong>说明：</strong></p>
+            <p><strong>使用说明：</strong></p>
             <ul>
-                <li>本表格展示了集群化设备PLC控制系统的输入输出点分配及功能定义</li>
-                <li><span class="section-title">PLC输入</span>列表示从现场设备到PLC的输入信号</li>
-                <li><span class="section-title">PLC输出</span>列表示从PLC到现场执行设备的输出信号</li>
-                <li>表格左侧(前三列)为输入部分，右侧(后三列)为输出部分</li>
-                <li>备注列提供了每个I/O点的补充说明和注意事项</li>
+                <li>本表格定义了在<strong>集群化设备</strong>中，<strong>机器人控制器</strong>与<strong>主控PLC</strong>之间典型的数字量(DI/DO)与模拟量(AI/AO)信号交互。</li>
+                <li><span class="section-title">机器人输入</span>：指由<strong>PLC输出给机器人</strong>的控制与状态信号。</li>
+                <li><span class="section-title">机器人输出</span>：指由<strong>机器人输出给PLC</strong>的状态与请求信号。</li>
+                <li>信号地址（如DI[0]）为示例，请根据实际机器人品牌（发那科、库卡、ABB等）的地址规则进行映射。</li>
+                <li>表格支持交互：<strong>点击任意数据行可高亮显示</strong>，方便查阅。</li>
             </ul>
         </div>
     </div>
     
     <script>
-        // 简单的交互效果：点击表格行时高亮显示
+        // 交互效果：点击表格行时高亮显示
         document.addEventListener('DOMContentLoaded', function() {
             const tableRows = document.querySelectorAll('table tr');
             tableRows.forEach(row => {
-                // 跳过前两行（表头）
                 if(row.rowIndex > 1) {
                     row.addEventListener('click', function() {
-                        // 移除其他行的高亮
                         tableRows.forEach(r => {
                             if(r.rowIndex > 1) r.style.backgroundColor = '';
                         });
-                        // 高亮当前行
-                        this.style.backgroundColor = '#d4edda';
+                        this.style.backgroundColor = '#ffcccc';
                     });
                 }
             });
@@ -233,7 +222,7 @@
             // 添加表格标题的鼠标悬停效果
             const mainHeader = document.querySelector('.merged-header');
             mainHeader.addEventListener('mouseover', function() {
-                this.style.backgroundColor = '#2c80b9';
+                this.style.backgroundColor = '#d62c1a';
             });
             mainHeader.addEventListener('mouseout', function() {
                 this.style.backgroundColor = '';
